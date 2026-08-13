@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>System Status Dashboard</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='6' fill='%2310B981'/></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ── Sidebar ─────────────────────────────────────────── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-dot" aria-hidden="true"></span>
+      <span class="brand-name">Status Center</span>
+    </div>
+
+    <div class="sidebar-section-label">Overview</div>
+
+    <nav class="sidebar-nav" id="sidebar-nav" aria-label="Primary">
+      <button class="nav-item is-active" type="button" data-nav="dashboard" aria-current="page">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect width="7" height="9" x="3" y="3" rx="1" />
+          <rect width="7" height="5" x="14" y="3" rx="1" />
+          <rect width="7" height="9" x="14" y="12" rx="1" />
+          <rect width="7" height="5" x="3" y="16" rx="1" />
+        </svg>
+        <span class="nav-label">Dashboard</span>
+      </button>
+
+      <button class="nav-item" type="button" data-nav="logs">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 12h.01" />
+          <path d="M3 18h.01" />
+          <path d="M3 6h.01" />
+          <path d="M8 12h13" />
+          <path d="M8 18h13" />
+          <path d="M8 6h13" />
+        </svg>
+        <span class="nav-label">Logs</span>
+        <span class="nav-badge" id="logs-badge">1</span>
+      </button>
+
+      <button class="nav-item" type="button" data-nav="settings">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+        <span class="nav-label">Settings</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <span class="monitor-dot" aria-hidden="true"></span>
+      <span>All systems monitored</span>
+    </div>
+  </aside>
+
+  <!-- ── Main content ────────────────────────────────────── -->
+  <main class="content">
+    <header class="page-header">
+      <div>
+        <h1>All systems</h1>
+        <p class="page-subtitle" id="page-subtitle">Loading…</p>
+      </div>
+    </header>
+
+    <section class="stats-grid" aria-label="Statistics">
+      <div class="stat-card"><p class="stat-label">Systems</p>
+        <p class="stat-value" id="stat-total">–</p>
+      </div>
+
+      <div class="stat-card"><p class="stat-label">Operational</p>
+        <p class="stat-value stat-value--good" id="stat-operational">–</p>
+      </div>
+
+      <div class="stat-card"><p class="stat-label">Needs attention</p>
+        <p class="stat-value stat-value--warn" id="stat-issues">–</p>
+      </div>
+
+      <div class="stat-card"><p class="stat-label">Avg uptime</p>
+        <p class="stat-value" id="stat-uptime">–</p>
+      </div>
+    </section>
+
+    <section class="control-bar">
+      <div class="filter-group" id="filter-group" role="group" aria-label="Filter systems">
+        <button class="filter-btn is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="filter-btn" type="button" data-filter="operational" aria-pressed="false">Operational</button>
+        <button class="filter-btn" type="button" data-filter="issues" aria-pressed="false">Issues</button>
+      </div>
+
+      <div class="control-right">
+        <span class="count-label" id="count-label">–</span>
+        <button class="btn-primary" type="button" id="new-system-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
+          New system
+        </button>
+      </div>
+    </section>
+
+    <section class="systems-grid" id="systems-grid" aria-live="polite"></section>
+
+    <div class="empty-state" id="empty-state" hidden>
+      No systems match this filter.
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
