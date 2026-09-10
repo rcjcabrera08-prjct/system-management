@@ -1,11 +1,19 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><%= title %></title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='6' fill='%2310B981'/></svg>" />
   <link rel="stylesheet" href="styles.css" />
+  <script>
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem("theme"); } catch (e) {}
+      var dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = dark ? "dark" : "light";
+    })();
+  </script>
 </head>
 <body>
 
@@ -64,9 +72,25 @@
         <h1>All systems</h1>
         <p class="page-subtitle" id="page-subtitle">Loading…</p>
       </div>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2" />
+          <path d="M12 20v2" />
+          <path d="m4.93 4.93 1.41 1.41" />
+          <path d="m17.66 17.66 1.41 1.41" />
+          <path d="M2 12h2" />
+          <path d="M20 12h2" />
+          <path d="m6.34 17.66-1.41 1.41" />
+          <path d="m19.07 4.93-1.41 1.41" />
+        </svg>
+      </button>
     </header>
 
-    <section class="stats-grid" aria-label="Statistics">
+    <section class="stats-grid" aria-label="Statistics" aria-live="polite">
       <div class="stat-card"><p class="stat-label">Systems</p>
         <p class="stat-value" id="stat-total">–</p>
       </div>
@@ -85,13 +109,31 @@
     </section>
 
     <section class="control-bar">
-      <div class="filter-group" id="filter-group" role="group" aria-label="Filter systems">
-        <button class="filter-btn is-active" type="button" data-filter="all" aria-pressed="true">All</button>
-        <button class="filter-btn" type="button" data-filter="operational" aria-pressed="false">Operational</button>
-        <button class="filter-btn" type="button" data-filter="issues" aria-pressed="false">Issues</button>
+      <div class="control-left">
+        <div class="filter-group" id="filter-group" role="group" aria-label="Filter systems">
+          <button class="filter-btn is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter-btn" type="button" data-filter="operational" aria-pressed="false">Operational</button>
+          <button class="filter-btn" type="button" data-filter="issues" aria-pressed="false">Issues</button>
+        </div>
+
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.3-4.3" />
+          </svg>
+          <input class="search-input" id="search-input" type="search" placeholder="Search systems…" aria-label="Search systems" autocomplete="off" />
+        </div>
       </div>
 
       <div class="control-right">
+        <div class="select-wrap">
+          <select class="sort-select" id="sort-select" aria-label="Sort systems">
+            <option value="updated">Recently updated</option>
+            <option value="name">Name A–Z</option>
+            <option value="uptimeDesc">Uptime: high to low</option>
+            <option value="uptimeAsc">Uptime: low to high</option>
+          </select>
+        </div>
         <span class="count-label" id="count-label">–</span>
         <button class="btn-primary" type="button" id="new-system-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
@@ -106,9 +148,20 @@
     <section class="systems-grid" id="systems-grid" aria-live="polite"></section>
 
     <div class="empty-state" id="empty-state" hidden>
-      No systems match this filter.
+      <p class="empty-title">No systems match</p>
+      <p class="empty-hint">Try a different filter or search term.</p>
+      <button class="btn-ghost" type="button" id="clear-filters-btn">Clear filters</button>
     </div>
   </main>
+
+  <!-- ── Modal (new system / details) ─────────────────────── -->
+  <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-panel" id="modal-panel"></div>
+  </div>
+
+  <!-- ── Toasts ───────────────────────────────────────────── -->
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="false"></div>
 
   <script src="script.js"></script>
 </body>
