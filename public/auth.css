@@ -1,0 +1,202 @@
+/* ────────────────────────────────────────────────────────────
+   Auth Pages — Login / Sign-In
+   Matches dashboard theme with light/dark support.
+   ──────────────────────────────────────────────────────────── */
+
+.auth-body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #FBFCFD 0%, #F5F7F9 100%);
+}
+
+:root[data-theme="dark"] .auth-body {
+  background: linear-gradient(180deg, #0B1320 0%, #070C13 100%);
+}
+
+/* Card */
+
+.auth-page {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.auth-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 36px 32px 32px;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Brand */
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 28px;
+}
+
+.auth-brand .brand-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5A93CC, var(--accent));
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.auth-brand .brand-name {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Header */
+
+.auth-title {
+  margin: 0 0 6px;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.auth-subtitle {
+  margin: 0 0 24px;
+  font-size: 13px;
+  color: var(--text-2);
+}
+
+/* Form */
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 0;
+}
+
+.auth-form .form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.auth-form .field {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.auth-form .field::placeholder {
+  color: var(--text-3);
+}
+
+.auth-form .field:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* Options row */
+
+.auth-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+}
+
+.auth-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-2);
+  cursor: pointer;
+  user-select: none;
+}
+
+.auth-checkbox input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.auth-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.auth-link:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+/* Submit button */
+
+.auth-btn {
+  width: 100%;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #548FC6 0%, #3E6E9F 100%);
+  color: #fff;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(74, 123, 176, 0.35), 0 4px 10px -4px rgba(74, 123, 176, 0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+  margin-top: 4px;
+}
+
+.auth-btn:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(74, 123, 176, 0.35), 0 8px 16px -6px rgba(74, 123, 176, 0.45);
+}
+
+.auth-btn:active {
+  transform: translateY(0);
+}
+
+/* Footer text */
+
+.auth-footer {
+  margin: 20px 0 0;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--text-2);
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  .auth-page {
+    padding: 16px;
+  }
+
+  .auth-card {
+    padding: 28px 24px 24px;
+  }
+}

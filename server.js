@@ -18,6 +18,10 @@ app.get('/signin', (req, res) => {
     res.render('sign_in', {title: "Sign In"});
 });
 
+app.get('/logout', (req, res) => {
+    res.render('logout', { title: "Logged Out" });
+});
+
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
